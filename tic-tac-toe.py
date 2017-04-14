@@ -6,35 +6,42 @@ class Board(object):
     def __init__(self, size=(3,3)):
         # super(, self).__init__()
         self.size = size
-        self.status = self.init_board()
+        self.state = self.init_board()
 
 
     def init_board(self):
         return [ [i for i in xrange(m * self.size[0], m * self.size[0] + self.size[0])] for m in xrange(0, self.size[1]) ]
 
     def print_board(self):
-        print "  " + "-" * (4 * len(self.status[0]) - 1)
+        print "  " + "-" * (4 * len(self.state[0]) - 1)
 
-        for row in self.status:
+        for row in self.state:
                 print (" | " + " | ".join(["%d"] * len(row)) + " | ") % tuple(row)
                 print "  " + "-" * (4 * len(row) - 1)
 
-    def init_game(self):
+
+class Game(object):
+    def __init__(self, board=None):
+        self.board = board
+        self.num_players = self.set_num_players()
+
+    def set_num_players(self):
         num_of_players = 0
 
         while num_of_players not in ["1", "2"]:
             print "TIC-TAC-TOE"
             num_of_players = raw_input("How many human players? (max of 2)\n")
 
-        # board = self.init_board()
+        return num_of_players
 
-        self.print_board()
-
-        print "End of start_game()."
+    def status(self):
+        self.board.print_board()
+        print "The End."
 
 
 # pdb.set_trace()
 
 if __name__ == '__main__':
     board = Board()
-    board.init_game()
+    game = Game(board)
+    game.status()
