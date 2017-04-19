@@ -23,6 +23,9 @@ class Player(object):
         self.team = team
 
 class Game(object):
+    '''
+    Keeps a record of all the game components like the players and the gameboard and controls the game dyanmics.
+    '''
     def __init__(self, board=None):
         self.board = board
         self.num_players = int(self.set_num_players())
@@ -38,8 +41,40 @@ class Game(object):
         print num_of_players
         return num_of_players
 
+    def create_players(self):
+        teams = ['x', 'o']
+
+        team_select = "Which team, " + " or ".join("\'{}\'".format(t) for t in teams) + "?  "
+
+        def repeat_team_select(team):
+            return "Team \'{}\' not available. ".format(team) + team_select
+
+        for i in xrange(self.num_players):
+            name = raw_input("Name of player {}?\n".format(i+1))
+            team = raw_input(team_select)
+
+            while team not in teams:
+                team = raw_input(repeat_team_select(team))
+
+            self.players.append(Player(name, team))
+
+            teams = filter(lambda t: t is not team, teams)
+
+        print "Players created: " + " ,".join("{}".format(t) for t in teams)
+
+
+    def create_game(self):
+        self.create_players()
+
+    def print_players(self):
+        # print " ,".join("{}".format(p) for p in [p.name for p in self.players])
+        print
+        for i, p in enumerate(self.players):
+            print "Player {}: {}".format(i+1, p.name)
+
     def status(self):
         self.board.print_board()
+        self.print_players()
         print "The End."
 
 
@@ -48,4 +83,5 @@ class Game(object):
 if __name__ == '__main__':
     board = Board()
     game = Game(board)
+    game.create_game()
     game.status()
