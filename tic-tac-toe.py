@@ -1,13 +1,11 @@
 import pdb
 
-
 class Board(object):
     """Proto for tic-tac-toe board."""
     def __init__(self, size=(3,3)):
         # super(, self).__init__()
         self.size = size
         self.state = self.init_board()
-
 
     def init_board(self):
         return [ [i for i in xrange(m * self.size[0], m * self.size[0] + self.size[0])] for m in xrange(0, self.size[1]) ]
