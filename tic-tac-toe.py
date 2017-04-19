@@ -17,11 +17,16 @@ class Board(object):
                 print (" | " + " | ".join(["%d"] * len(row)) + " | ") % tuple(row)
                 print "  " + "-" * (4 * len(row) - 1)
 
+class Player(object):
+    def __init__(self, name="Player Bozo", team="X"):
+        self.name = name
+        self.team = team
 
 class Game(object):
     def __init__(self, board=None):
         self.board = board
-        self.num_players = self.set_num_players()
+        self.num_players = int(self.set_num_players())
+        self.players = []
 
     def set_num_players(self):
         num_of_players = 0
@@ -30,6 +35,7 @@ class Game(object):
             print "TIC-TAC-TOE"
             num_of_players = raw_input("How many human players? (max of 2)\n")
 
+        print num_of_players
         return num_of_players
 
     def status(self):
