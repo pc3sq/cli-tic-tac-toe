@@ -26,7 +26,7 @@ class Game(object):
     '''
     Keeps a record of all the game components like the players and the gameboard and controls the game dyanmics.
     '''
-    def __init__(self, board=None):
+    def __init__(self, board):
         self.board = board
         self.num_players = int(self.set_num_players())
         self.players = []
@@ -73,8 +73,8 @@ class Game(object):
             print "Player {}: {}".format(i+1, p.name)
 
     def status(self):
-        self.board.print_board()
         self.print_players()
+        self.board.print_board()
         print "The End."
 
 
