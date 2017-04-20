@@ -88,11 +88,42 @@ class Game(object):
         # print " ,".join("{}".format(p) for p in [p.name for p in self.players])
         print
         for i, p in enumerate(self.players):
-            print "Player {}: {}".format(i+1, p.name)
+            print "Player {}: {} \t\t Team: {}".format(i+1, p.name, p.team.upper())
 
     def status(self):
         self.print_players()
         self.board.print_board()
+
+
+    def run_game(self):
+        self.status()
+
+        if self.num_players == 2:
+            # until all spaces are filled
+            whos_turn = [1,0]
+            player_turn = 1
+            self.status()
+
+            try:
+                space = int(raw_input("{}, which space would you like to take?\n".format(self.players[player_turn].name.upper())))
+            except:
+                space = int(raw_input("{}, which space would you like to take?\n".format(self.players[player_turn].name.upper())))
+
+            print space
+            print self.board.state
+
+            space_loc = self.board.layout[space]
+
+            while space not in [num for sublist in self.board.state for num in sublist] or self.board.state[space_loc[0]][space_loc[1]] in ['x', 'o']:
+                space = raw_input("Space {} not available. Please choose another space.".format(space, self.players[player_turn].name.upper()))
+
+            self.board.state[space_loc[0]][space_loc[1]] = self.players[player_turn].team
+
+
+        else:
+            print "Need to create a computer player."
+
+        self.status()
         print "The End."
 
 
@@ -103,3 +134,4 @@ if __name__ == '__main__':
     game = Game(board)
     game.create_game()
     game.status()
+    game.run_game()
