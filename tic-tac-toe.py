@@ -49,7 +49,27 @@ class Game(object):
         def repeat_team_select(team):
             return "Team \'{}\' not available. ".format(team) + team_select
 
-        for i in xrange(self.num_players):
+        if self.num_players == 2:
+            for i in xrange(self.num_players):
+                name = raw_input("Name of player {}?\n".format(i+1))
+
+                if i == 0:
+                    team = raw_input(team_select)
+
+                    while team not in teams:
+                        team = raw_input(repeat_team_select(team))
+
+                    self.players.append(Player(name, team))
+
+                    teams = filter(lambda t: team is not t, teams)
+                else:
+                    self.players.append(Player(name, teams[0]))
+                    print "Player 2, name, defaults to team {}".format(teams[0])
+
+            # print "Players created: " + " ,".join("{}".format(t) for t in teams)
+            self.print_players()
+
+        else:
             name = raw_input("Name of player {}?\n".format(i+1))
             team = raw_input(team_select)
 
@@ -58,9 +78,7 @@ class Game(object):
 
             self.players.append(Player(name, team))
 
-            teams = filter(lambda t: t is not team, teams)
-
-        print "Players created: " + " ,".join("{}".format(t) for t in teams)
+            self.print_players()
 
 
     def create_game(self):
