@@ -14,7 +14,7 @@ class Board(object):
         print "  " + "-" * (4 * len(self.state[0]) - 1)
 
         for row in self.state:
-                print (" | " + " | ".join(["%d"] * len(row)) + " | ") % tuple(row)
+                print (" | " + " | ".join(["%s"] * len(row)) + " | ") % tuple(row)
                 print "  " + "-" * (4 * len(row) - 1)
 
 class Player(object):
