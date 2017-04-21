@@ -5,6 +5,15 @@ class Board(object):
     def __init__(self, size=(3,3)):
         # super(, self).__init__()
         self.size = size
+        self.layout = { 0: (0,0),
+                        1: (0,1),
+                        2: (0,2),
+                        3: (1,0),
+                        4: (1,1),
+                        5: (1,2),
+                        6: (2,0),
+                        7: (2,1),
+                        8: (2,2) }
         self.state = self.init_board()
 
     def init_board(self):
